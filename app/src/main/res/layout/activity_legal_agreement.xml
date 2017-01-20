@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_legal_agreement"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="com.uat.foodmeister.LegalAgreement">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:weightSum="1"
+        android:gravity="center_horizontal">
+
+        <ImageView
+            android:layout_width="290dp"
+            android:layout_height="96dp"
+            app:srcCompat="@mipmap/foodmeisterlogo"
+            android:id="@+id/imageView3"
+            android:cropToPadding="false" />
+
+        <TextView
+            android:text="i"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/textViewI"
+            android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+            android:textAlignment="center"
+            android:textStyle="normal|bold"
+            android:textSize="50sp"
+            android:gravity="center"
+            android:layout_weight="0.14" />
+
+        <TextView
+            android:text="The information presented in this app is not real, as this is just a proof of concept. Any injuries, allergic reactions, or other unfortunate events that occur from faulty information are not at fault to the publishing organization"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:id="@+id/textViewLegal"
+            android:layout_weight="0.68"
+            android:textStyle="normal|bold"
+            android:textSize="20sp"
+            android:textAlignment="center"
+            android:gravity="top"/>
+
+        <Button
+            android:text="I Accept"
+            android:layout_width="147dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/buttonAccept"
+            android:textSize="20sp"
+            android:elevation="0dp"
+            android:onClick="sendMessage" />
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="16dp" />
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:srcCompat="@mipmap/uatlogo"
+            android:id="@+id/imageView2"
+            android:layout_weight="0.18" />
+
+    </LinearLayout>
+</RelativeLayout>

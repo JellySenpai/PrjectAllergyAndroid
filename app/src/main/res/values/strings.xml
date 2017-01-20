@@ -1,0 +1,41 @@
+<resources>
+    <string name="app_name">Food Meister</string>
+    <string name="title_activity_maps">Food Meister</string>
+    <string name="location_permission_rational">Location permissions are needed to show nearby restaurants.</string>
+    <string name="location_permission_granted">Location permissions have been granted.</string>
+    <string name="location_permission_not_granted">Location permissions have not been granted.</string>
+    <string name="allow">Allow</string>
+    <string name="deny">Deny</string>
+    <string name="enable">Enable</string>
+    <string name="gps_disabled">GPS Disabled</string>
+    <string name="gplaces_browser_key">AIzaSyAeTyQ8P_uJ1UGNwxpPpmgNylv5GG66LDY</string>
+    <string name="gplace_type">restaurant</string>
+    <string name="name">name</string>
+    <string name="email">email</string>
+    <string name="gender">gender</string>
+    <string name="date_of_birth">dob</string>
+    <string name="female">female</string>
+    <string name="male">male</string>
+    <string name="menu">Menu</string>
+    <string name="set_bdate">Set Birthdate</string>
+    <color name="light_blue">#92cdde</color>
+    <color name="purple">#ae006f</color>
+    <string name="gender_prompt"></string>
+
+
+    <string-array name="gender_array">
+        <item>Choose Gender</item>
+        <item>Female</item>
+        <item>Male</item>
+        <item>Other</item>
+    </string-array>
+    <string-array name="profile_array">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+    </string-array>
+    <!--<color name="blue">#11b9e9</color>
+    <color name="light_blue">#92cdde</color>
+    <color name="light_blue">#92cdde</color>
+    <color name="light_blue">#92cdde</color>-->
+</resources>

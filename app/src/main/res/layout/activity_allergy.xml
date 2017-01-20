@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/light_blue">
+
+    <TextView
+        android:id="@+id/allergy_activity_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Do you have any of these common food allergies?"
+        android:textSize="26dp"
+        android:textStyle="bold"
+        android:gravity="center"/>
+
+    <ListView
+        android:id="@+id/allergy_list"
+        android:layout_alignBottom="@id/allergy_activity_text_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentBottom="true"></ListView>
+
+    <Button
+        android:text="confirm"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/allergy_list"
+        android:gravity="center"
+        android:id="@+id/confirm_button_allergy"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="436dp" />
+
+
+</RelativeLayout>

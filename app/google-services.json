@@ -1,0 +1,44 @@
+{
+  "project_info": {
+    "project_number": "1057208884860",
+    "project_id": "decent-line-144304"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1057208884860:android:7050dbfbf3b86437",
+        "android_client_info": {
+          "package_name": "com.uat.foodmeister"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1057208884860-l8hff2u6tokitetfgefn94fo0iq2rqrk.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.uat.foodmeister",
+            "certificate_hash": "6F482C11264EFC224537A302227C54107FE810D4"
+          }
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDWHUBxpLQCRxD_sDiDJZ9Bp4A2z9UcqAQ"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 1
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
