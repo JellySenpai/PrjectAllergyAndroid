@@ -20,6 +20,7 @@ import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
 import com.uat.foodmeister.MapsActivity;
 import com.uat.foodmeister.R;
+import com.uat.foodmeister.RegistrationActivity;
 
 public class SignInActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener, View.OnClickListener {
 
@@ -41,7 +42,6 @@ public class SignInActivity extends AppCompatActivity implements GoogleApiClient
     protected void onCreate(Bundle savedInstance) {
         super.onCreate(savedInstance);
         setContentView(R.layout.sign_in_activity);
-        newSignIn();
 
         //Sign in button listener
         findViewById(R.id.sign_in_button).setOnClickListener(this);
@@ -67,7 +67,7 @@ public class SignInActivity extends AppCompatActivity implements GoogleApiClient
         super.onStart();
 
         OptionalPendingResult<GoogleSignInResult> opr = Auth.GoogleSignInApi.silentSignIn(mGoogleApiClient);
-        userAlreadyRegistered = true;
+        userAlreadyRegistered = false;
         if (opr.isDone()) {
             //If the cached credentials are valid the signin result will be available instantly
             Log.i(TAG, "Got Cached Sign-in");
@@ -127,17 +127,19 @@ public class SignInActivity extends AppCompatActivity implements GoogleApiClient
             name = acct.getDisplayName();
 
             email = acct.getEmail();
-
             if (userAlreadyRegistered)
                 startMapsActivity();
             else
-                startRegisterGenderActivity();
-
+                startRegistrationActivity();
         } else {
             Log.i(TAG, "NO SIGN IN");
         }
-    }
 
+    }
+    private void startRegistrationActivity(){
+        Intent intent = new Intent(this, RegistrationActivity.class);
+        startActivity(intent);
+    }
     private void signIn() {
         Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
 
@@ -201,8 +203,5 @@ public class SignInActivity extends AppCompatActivity implements GoogleApiClient
         Log.i(TAG, "Stashing " + email);
 
         startActivity(genderIntent);
-    }
-    private void newSignIn(){
-        startMapsActivity();
     }
 }

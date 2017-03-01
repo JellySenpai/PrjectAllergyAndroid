@@ -53,6 +53,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         setContentView(R.layout.activity_maps);
 
+
         mainCoordinateLayout = (CoordinatorLayout) findViewById(R.id.mainCoordinatorLayout);
 
         locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
@@ -113,7 +114,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         if (mMap == null)
             mMap = googleMap;
 
+        //LatLng UAT = new LatLng();
+
         displayCurrentLocation(mMap);
+        //loadNearByPlaces(33.376958,-111.975861);
 
         mMap.setOnMarkerClickListener(this);
     }
@@ -130,7 +134,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
             Criteria criteria = new Criteria();
             String bestProvider = locationManager.getBestProvider(criteria, true);
-            Location location = locationManager.getLastKnownLocation(bestProvider);
+            Location location = locationManager.getLastKnownLocation(LocationManager.PASSIVE_PROVIDER);
 
             if (location != null)
             {
@@ -149,7 +153,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         googlePlacesUrl.append("&radius=").append(AppConfig.PROXIMITY_RADIUS);
         googlePlacesUrl.append("&types=").append("restaurant");
         googlePlacesUrl.append("&sensor=true");
-        googlePlacesUrl.append("&key=" + "AIzaSyAeTyQ8P_uJ1UGNwxpPpmgNylv5GG66LDY");
+        googlePlacesUrl.append("&key=" + "AIzaSyDcS-vAC5NeLZGsZ0UJgYpDZNKmtxy7sz4");
 
         Log.i("URL", googlePlacesUrl.toString());
 
@@ -218,7 +222,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         //this is for debug only, this is hard coding the address of UAT for use while in the emulator.
         //LatLng UAT = new LatLng(33.3769580,-111.9758610);
         //latitude = 33.3769580;
-        //longitude = 111.9758610;
+        //longitude = -111.9758610;
 
         LatLng currentLocation = new LatLng(latitude, longitude);
 

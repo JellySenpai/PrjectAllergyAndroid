@@ -5,7 +5,11 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.text.Html;
 import android.util.Log;
+import android.util.StringBuilderPrinter;
 
+import com.uat.foodmeister.User.UserProfile;
+
+import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
@@ -17,41 +21,35 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.nio.Buffer;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
 public class DataBaseHelper extends AsyncTask<DataBaseHelper,Void,Void> {
 
+    private final String TAG = "DBHelper";
+
     private String email, name, gender;
 
     private int houseHoldSize, numOfProfiles;
+
+    private UserProfile m_userProfile;
 
     private Context context;
 
     private HashMap<String, Integer> allergyMap;
 
-    public DataBaseHelper(Context context, String email, String name, int houseHoldSize, int numOfProfiles, String gender, HashMap<String, Integer> allergyMap) {
+    public DataBaseHelper(Context context, UserProfile profile) {
 
         this.context = context;
-
-        this.email = email;
-
-        this.name = name;
-
-        this.houseHoldSize = houseHoldSize;
-
-        this.numOfProfiles = numOfProfiles;
-
-        this.gender = gender;
-
-        this.allergyMap = allergyMap;
+        this.m_userProfile = profile;
     }
 
     @Override
     protected Void doInBackground(DataBaseHelper... params) {
 
-        String login_url = "http://thefoodmeister.com/register-user-profile.php";
+        String login_url = "http://thefoodmeister.com/register-new-user.php";
 
         try {
 
@@ -64,10 +62,10 @@ public class DataBaseHelper extends AsyncTask<DataBaseHelper,Void,Void> {
 
             BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream, "UTF-8"));
 
-            String post_data = postDataReturn("name", name) + "&" + postDataReturn("email", email) + "&" + postDataReturn("houseHoldSize", "1") + "&"
-            + postDataReturn("numOfProfiles", "1") + "&" + postDataReturn("gender", gender) + "&";
+            String post_data = postDataReturn("fullName", m_userProfile.getUserName()) + "&" + postDataReturn("email", m_userProfile.getEmail()) + "&" + postDataReturn("houseHoldSize", "1") + "&"
+            + postDataReturn("numOfProfiles", "1") + "&" + postDataReturn("gender", m_userProfile.getGender().toString()) + "&";
 
-            Iterator it = allergyMap.entrySet().iterator();
+            Iterator it = m_userProfile.getAllergyMap().entrySet().iterator();
 
             while (it.hasNext()) {
                 Map.Entry pair = (Map.Entry)it.next();
@@ -76,7 +74,7 @@ public class DataBaseHelper extends AsyncTask<DataBaseHelper,Void,Void> {
 
             post_data = post_data.substring(0, post_data.length() -1);
 
-            Log.i("DATABASEHELPER", post_data);
+            Log.i(TAG, post_data);
 
             bufferedWriter.write(post_data);
 
@@ -86,22 +84,18 @@ public class DataBaseHelper extends AsyncTask<DataBaseHelper,Void,Void> {
 
             outputStream.close();
 
-            InputStream inputStream = httpURLConnection.getInputStream();
+            String urlResult = readURLReturnData(httpURLConnection);
 
-            //BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream, "iso-8859-1"));
-
-            //bufferedReader.close();
-
-            inputStream.close();
+            Log.i(TAG + " urlResult", urlResult);
 
             httpURLConnection.disconnect();
 
         } catch (MalformedURLException e) {
-            Log.i("DATABASEHELPER", e.getMessage());
+            Log.i(TAG, e.getMessage());
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
-            Log.i("DATABASEHELPER", e.getMessage());
+            Log.i(TAG, e.getMessage());
         }
 
         return null;
@@ -130,5 +124,34 @@ public class DataBaseHelper extends AsyncTask<DataBaseHelper,Void,Void> {
 
     String postDataReturn(String key, String val) throws IOException{
         return  URLEncoder.encode(key, "UTF-8")+"="+URLEncoder.encode(val, "UTF-8");
+    }
+
+    private String readURLReturnData(HttpURLConnection connection){
+        String result = null;
+        StringBuffer sb = new StringBuffer();
+        InputStream is = null;
+
+        try{
+            is = new BufferedInputStream(connection.getInputStream());
+            BufferedReader br = new BufferedReader(new InputStreamReader(is));
+            String inputLine = "";
+            while((inputLine = br.readLine()) != null){
+                sb.append(inputLine);
+            }
+            result = sb.toString();
+        }
+        catch(Exception e){
+            Log.i(TAG, "Error Reading Input Stream");
+            result = null;
+        }
+        finally{
+            if(is != null){
+                try{
+                    is.close();
+                }
+                catch(IOException e){}
+            }
+        }
+        return result;
     }
 }

@@ -16,6 +16,7 @@ import android.widget.TextView;
 import java.util.Arrays;
 import java.util.HashMap;
 
+import com.uat.foodmeister.MapsActivity;
 import com.uat.foodmeister.R;
 import com.uat.foodmeister.User.UserProfile;
 
@@ -29,6 +30,8 @@ public class AllergyActivity extends AppCompatActivity {
 
     private int lightBlue;
 
+    private UserProfile newUserProfile;
+
     @Override
     public void onCreate(Bundle savedInstance) {
         super.onCreate(savedInstance);
@@ -36,7 +39,7 @@ public class AllergyActivity extends AppCompatActivity {
         setContentView(R.layout.activity_allergy);
 
         Intent temporaryIntent = getIntent();
-        UserProfile newUserProfile= (UserProfile) temporaryIntent.getSerializableExtra("UserProfile");
+        newUserProfile= (UserProfile) temporaryIntent.getSerializableExtra("UserProfile");
 
         Log.i("AllergyActivity", newUserProfile.toString());
 
@@ -73,34 +76,46 @@ public class AllergyActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
+                DataBaseHelper dataBaseHelper = new DataBaseHelper(getBaseContext(), newUserProfile);
+
                 //DataBaseHelper dataBaseHelper = new DataBaseHelper(getBaseContext(), UserProfile.email, UserProfile.name, 1, 1, UserProfile.gender, allergyMap);
 
-                //dataBaseHelper.execute(dataBaseHelper);
+                dataBaseHelper.execute(dataBaseHelper);
+                goToMap();
 
             }
         });
+
+    }
+
+    private void goToMap()
+    {
+        Intent intent = new Intent(this, MapsActivity.class);
+        intent.putExtra("UserProfile", newUserProfile);
+        startActivity(intent);
     }
 
     private void changeMapValue(String item) {
         int val = allergyMap.get(item);
 
         if (val == 0) {
-            allergyMap.put(item, 1);
+            newUserProfile.changeAllergy(item, Boolean.TRUE);
         } else if (val == 1) {
-            allergyMap.put(item, 0);
+            newUserProfile.changeAllergy(item, Boolean.FALSE);
         } else {
             /* For Safety */
-            allergyMap.put(item, 0);
+            newUserProfile.changeAllergy(item, Boolean.FALSE);
         }
     }
-
     private void changeViewColor(String item, View v) {
 
-        int val = (Integer)allergyMap.get(item);
+        Boolean val = (Boolean)newUserProfile.getAllergyVal(item);
 
-        if (val == 0) {
+        //Log.i("AllergyActivity", v.toString());
+
+        if (!val) {
             v.setBackgroundColor(lightBlue);
-        } else if (val == 1) {
+        } else if (val) {
             v.setBackgroundColor(darkBlue);
         } else {
             /* For Safety */

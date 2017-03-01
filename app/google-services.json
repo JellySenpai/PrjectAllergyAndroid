@@ -1,29 +1,33 @@
 {
   "project_info": {
-    "project_number": "1057208884860",
-    "project_id": "decent-line-144304"
+    "project_number": "129899081655",
+    "project_id": "firebase-food-meister"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:1057208884860:android:7050dbfbf3b86437",
+        "mobilesdk_app_id": "1:129899081655:android:7050dbfbf3b86437",
         "android_client_info": {
           "package_name": "com.uat.foodmeister"
         }
       },
       "oauth_client": [
         {
-          "client_id": "1057208884860-l8hff2u6tokitetfgefn94fo0iq2rqrk.apps.googleusercontent.com",
+          "client_id": "129899081655-tspr7u43agr8es445b83pung9uvg70ds.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.uat.foodmeister",
-            "certificate_hash": "6F482C11264EFC224537A302227C54107FE810D4"
+            "certificate_hash": "B795E4EF130A139FB41DB6FABC7BDFACC07CFA2F"
           }
+        },
+        {
+          "client_id": "129899081655-ecth45ihrgnd1ktua473ksh47b35kbtb.apps.googleusercontent.com",
+          "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyDWHUBxpLQCRxD_sDiDJZ9Bp4A2z9UcqAQ"
+          "current_key": "AIzaSyC_CPLdlatzdaf6vIs5EHc4QBcoXazZD2M"
         }
       ],
       "services": {

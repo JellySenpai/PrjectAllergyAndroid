@@ -29,35 +29,41 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
     private SimpleDateFormat dateFormatter;
     private Calendar birthDate;
 
+
+
     UserProfile newUserProfile;
 
     private static final String TAG = "RegistrationActivity";
 
-    private EditText dateEdit, nameField;
-    private Spinner userGender, householdSize;
+    private EditText dateEdit, nameField, emailEntry;
+
+    private Spinner userGender;
 
     private boolean bDaySet = false;
     private Button registerProfile;
 
-    @Override
+
+
+
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.registration_activity_v3);
+        setContentView(R.layout.activity_main);
         dateFormatter = new SimpleDateFormat("MM-dd-yyyy", Locale.US);
 
         dateEdit = (EditText) findViewById(R.id.dateEdit);
+        //dateEdit.setInputType(InputType.emailEntry);
         nameField = (EditText) findViewById(R.id.users_name);
-        userGender = (Spinner) findViewById(R.id.genderspinner);
+        userGender = (Spinner) findViewById(R.id.genderEntry);
 
-        dateEdit.setInputType(InputType.TYPE_NULL);
         registerProfile = (Button) findViewById(R.id.btnSubmit);
 
 
-        setDateTimeField();
+        //setDateTimeField();
 
     }
     private void setDateTimeField() {
-        dateEdit.setOnClickListener(this);
+        //dateEdit.setOnClickListener(this);
 
         int year = 1993;
 
@@ -94,7 +100,7 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
             correctInfo = false;
         }
 
-        UserGender gender = UserGender.DEFAULT;
+       /* UserGender gender = UserGender.DEFAULT;
 
         String tempGenderContainer = userGender.getItemAtPosition(userGender.getSelectedItemPosition()).toString();
         switch (tempGenderContainer) {
@@ -112,13 +118,13 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
                 correctInfo = false;
                 break;
 
-        }
+        }*/
         String birthdate = dateEdit.getText().toString();
         if(TextUtils.isEmpty(birthdate)){
             correctInfo = false;
         }
         if(correctInfo){
-            newUserProfile = new UserProfile(name, gender, birthdate);
+            newUserProfile = new UserProfile(name, UserGender.DEFAULT, birthdate, "test@gamil.com");
 
             Log.i(TAG, newUserProfile.toString());
             //here will transition to next Activity which will get the allergy info
