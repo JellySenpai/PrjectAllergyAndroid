@@ -7,12 +7,17 @@ import android.text.Html;
 import android.util.Log;
 import android.util.StringBuilderPrinter;
 
+<<<<<<< HEAD
 import com.uat.foodmeister.DB.DBWorkerDelegate;
 import com.uat.foodmeister.User.UserAccount;
 import com.uat.foodmeister.User.UserProfile;
 
 import org.json.JSONObject;
 
+=======
+import com.uat.foodmeister.User.UserProfile;
+
+>>>>>>> d5f05734d3ce1c56188fe3aa3e6a2a5edea4ccf3
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -26,7 +31,10 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.nio.Buffer;
+<<<<<<< HEAD
 import java.security.spec.ECField;
+=======
+>>>>>>> d5f05734d3ce1c56188fe3aa3e6a2a5edea4ccf3
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -35,10 +43,13 @@ public class DataBaseHelper extends AsyncTask<UserAccount,Void,JSONObject> {
 
     private final String TAG = "DBHelper";
 
+    private final String TAG = "DBHelper";
+
     private String email, name, gender;
 
     private int houseHoldSize, numOfProfiles;
 
+<<<<<<< HEAD
     private UserAccount userAccount;
     private UserProfile userProfile;
 
@@ -55,6 +66,18 @@ public class DataBaseHelper extends AsyncTask<UserAccount,Void,JSONObject> {
 
     public void setOnFinishedListener(DBWorkerDelegate delegate){
         this.delegate = delegate;
+=======
+    private UserProfile m_userProfile;
+
+    private Context context;
+
+    private HashMap<String, Integer> allergyMap;
+
+    public DataBaseHelper(Context context, UserProfile profile) {
+
+        this.context = context;
+        this.m_userProfile = profile;
+>>>>>>> d5f05734d3ce1c56188fe3aa3e6a2a5edea4ccf3
     }
 
     @Override
@@ -73,6 +96,7 @@ public class DataBaseHelper extends AsyncTask<UserAccount,Void,JSONObject> {
 
             BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream, "UTF-8"));
 
+<<<<<<< HEAD
             String post_data = postDataReturn("fullName", userAccount.getName()) + "&" + postDataReturn("email", userAccount.getEmail());
 
 
@@ -80,6 +104,12 @@ public class DataBaseHelper extends AsyncTask<UserAccount,Void,JSONObject> {
            // + postDataReturn("numOfProfiles", "1") + "&" + postDataReturn("gender", userProfile.getGender().toString()) + "&";
 
            /* Iterator it = userProfile.getAllergyMap().entrySet().iterator();
+=======
+            String post_data = postDataReturn("fullName", m_userProfile.getUserName()) + "&" + postDataReturn("email", m_userProfile.getEmail()) + "&" + postDataReturn("houseHoldSize", "1") + "&"
+            + postDataReturn("numOfProfiles", "1") + "&" + postDataReturn("gender", m_userProfile.getGender().toString()) + "&";
+
+            Iterator it = m_userProfile.getAllergyMap().entrySet().iterator();
+>>>>>>> d5f05734d3ce1c56188fe3aa3e6a2a5edea4ccf3
 
             while (it.hasNext()) {
                 Map.Entry pair = (Map.Entry)it.next();
@@ -87,7 +117,11 @@ public class DataBaseHelper extends AsyncTask<UserAccount,Void,JSONObject> {
             }
 
             post_data = post_data.substring(0, post_data.length() -1);
+<<<<<<< HEAD
             */
+=======
+
+>>>>>>> d5f05734d3ce1c56188fe3aa3e6a2a5edea4ccf3
             Log.i(TAG, post_data);
 
             bufferedWriter.write(post_data);
@@ -98,6 +132,7 @@ public class DataBaseHelper extends AsyncTask<UserAccount,Void,JSONObject> {
 
             outputStream.close();
 
+<<<<<<< HEAD
             JSONObject jsonObject = new JSONObject(readURLReturnData(httpURLConnection));
 
             httpURLConnection.disconnect();
@@ -110,6 +145,20 @@ public class DataBaseHelper extends AsyncTask<UserAccount,Void,JSONObject> {
             Log.e(TAG, ex.getMessage());
         }catch (Exception ex){
             Log.e(TAG, ex.getMessage());
+=======
+            String urlResult = readURLReturnData(httpURLConnection);
+
+            Log.i(TAG + " urlResult", urlResult);
+
+            httpURLConnection.disconnect();
+
+        } catch (MalformedURLException e) {
+            Log.i(TAG, e.getMessage());
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+            Log.i(TAG, e.getMessage());
+>>>>>>> d5f05734d3ce1c56188fe3aa3e6a2a5edea4ccf3
         }
 
         return null;

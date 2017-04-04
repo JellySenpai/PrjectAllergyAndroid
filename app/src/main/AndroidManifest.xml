@@ -66,7 +66,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+<<<<<<< HEAD
 
+=======
+>>>>>>> d5f05734d3ce1c56188fe3aa3e6a2a5edea4ccf3
         <!--<activity
             android:name=".Registration.SignInActivity"
             android:theme="@style/Theme.AppCompat.DayNight.NoActionBar"

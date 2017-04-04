@@ -43,7 +43,11 @@ dependencies {
     compile 'com.google.firebase:firebase-auth:10.2.0'
     compile 'com.github.dmytrodanylyk.android-process-button:library:1.0.4'
     compile 'pl.droidsonroids.gif:android-gif-drawable:1.1.17'
+<<<<<<< HEAD
     compile 'com.android.support:support-v4:24.2.1'
+=======
+
+>>>>>>> d5f05734d3ce1c56188fe3aa3e6a2a5edea4ccf3
     testCompile 'junit:junit:4.12'
 }
 apply plugin: 'com.google.gms.google-services'

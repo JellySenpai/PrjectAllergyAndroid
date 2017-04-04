@@ -17,32 +17,50 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
+<<<<<<< HEAD
         android:id="@+id/createButton"
         android:onClick="registerNewAccount"/>
+=======
+        android:id="@+id/createButton" />
+>>>>>>> d5f05734d3ce1c56188fe3aa3e6a2a5edea4ccf3
 
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:inputType="textPersonName"
         android:ems="10"
+<<<<<<< HEAD
         android:background="@color/white"
+=======
+>>>>>>> d5f05734d3ce1c56188fe3aa3e6a2a5edea4ccf3
         android:layout_below="@+id/textView"
         android:layout_alignRight="@+id/switch7"
         android:layout_alignEnd="@+id/switch7"
         android:layout_marginTop="27dp"
+<<<<<<< HEAD
         android:id="@+id/users_name" />
+=======
+        android:id="@+id/nameEntry" />
+>>>>>>> d5f05734d3ce1c56188fe3aa3e6a2a5edea4ccf3
 
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:inputType="textPersonName"
+<<<<<<< HEAD
         android:background="@color/white"
+=======
+>>>>>>> d5f05734d3ce1c56188fe3aa3e6a2a5edea4ccf3
         android:ems="10"
         android:id="@+id/emailEntry"
         android:layout_alignBaseline="@+id/emailView"
         android:layout_alignBottom="@+id/emailView"
         android:layout_alignLeft="@+id/textView9"
+<<<<<<< HEAD
         android:layout_alignStart="@+id/users_name" />
+=======
+        android:layout_alignStart="@+id/nameEntry" />
+>>>>>>> d5f05734d3ce1c56188fe3aa3e6a2a5edea4ccf3
 
     <TextView
         android:layout_width="wrap_content"
@@ -62,27 +80,41 @@
         android:layout_marginTop="18dp"
         android:id="@+id/bDayView" />
 
+<<<<<<< HEAD
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:inputType="textPersonName"
         android:background="@color/white"
+=======
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+>>>>>>> d5f05734d3ce1c56188fe3aa3e6a2a5edea4ccf3
         android:ems="10"
         android:id="@+id/bDayText"
         android:layout_alignBaseline="@+id/bDayView"
         android:layout_alignBottom="@+id/bDayView"
         android:layout_alignLeft="@+id/setUpText"
+<<<<<<< HEAD
         android:layout_alignStart="@+id/setUpText"
         android:onClick="showMeDates"
         android:clickable="true"
         android:text=""/>
+=======
+        android:layout_alignStart="@+id/setUpText" />
+>>>>>>> d5f05734d3ce1c56188fe3aa3e6a2a5edea4ccf3
 
     <Spinner
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:inputType="textPersonName"
+<<<<<<< HEAD
         android:background="#FFFFFF"
         android:entries="@array/gender_array"
+=======
+>>>>>>> d5f05734d3ce1c56188fe3aa3e6a2a5edea4ccf3
         android:ems="10"
         android:layout_below="@+id/bDayText"
         android:layout_alignRight="@+id/bDayText"
@@ -114,7 +146,11 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="19dp"
         android:id="@+id/emailView"
+<<<<<<< HEAD
         android:layout_below="@+id/users_name"
+=======
+        android:layout_below="@+id/nameEntry"
+>>>>>>> d5f05734d3ce1c56188fe3aa3e6a2a5edea4ccf3
         android:layout_toLeftOf="@+id/emailEntry"
         android:layout_toStartOf="@+id/emailEntry" />
 
@@ -208,9 +244,15 @@
         android:text="Name:"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+<<<<<<< HEAD
         android:layout_alignTop="@+id/users_name"
         android:layout_toLeftOf="@+id/users_name"
         android:layout_toStartOf="@+id/users_name"
+=======
+        android:layout_alignTop="@+id/nameEntry"
+        android:layout_toLeftOf="@+id/nameEntry"
+        android:layout_toStartOf="@+id/nameEntry"
+>>>>>>> d5f05734d3ce1c56188fe3aa3e6a2a5edea4ccf3
         android:layout_marginTop="12dp"
         android:id="@+id/textView9" />
 

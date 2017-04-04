@@ -17,15 +17,25 @@ public class UserProfile implements Serializable {
     private String[] allergyNames = {"milk", "egg", "wheat", "fish", "shellfish", "peanut", "tree_nut", "soy"};
 
     public UserProfile(){
+<<<<<<< HEAD
         this(null, UserGender.DEFAULT, null,null);
     }
     public UserProfile(String name, UserGender gender, String birthdate, String email)
     {
+=======
+        this(null, UserGender.DEFAULT, null, "");
+    }
+    public UserProfile(String name, UserGender gender, String birthdate, String email){
+>>>>>>> d5f05734d3ce1c56188fe3aa3e6a2a5edea4ccf3
         this.name      = name;
         this.email     = email;
         this.gender    = gender;
         this.birthDate = birthdate;
+<<<<<<< HEAD
 
+=======
+        this.email = email;
+>>>>>>> d5f05734d3ce1c56188fe3aa3e6a2a5edea4ccf3
         loadAllergiesIntoMap();
     }
     public UserProfile (String name, String email)

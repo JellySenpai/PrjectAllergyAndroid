@@ -29,7 +29,10 @@ import com.uat.foodmeister.MainActivity;
 import com.uat.foodmeister.MapsActivity;
 import com.uat.foodmeister.R;
 import com.uat.foodmeister.RegistrationActivity;
+<<<<<<< HEAD
 import com.uat.foodmeister.User.UserAccount;
+=======
+>>>>>>> d5f05734d3ce1c56188fe3aa3e6a2a5edea4ccf3
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -55,9 +58,12 @@ public class SignInActivity extends AppCompatActivity implements GoogleApiClient
     protected void onCreate(Bundle savedInstance) {
         super.onCreate(savedInstance);
         setContentView(R.layout.sign_in_activity);
+<<<<<<< HEAD
 
         worker = new DBWorker();
         worker.setOnFinishedListener(this);
+=======
+>>>>>>> d5f05734d3ce1c56188fe3aa3e6a2a5edea4ccf3
 
         //Sign in button listener
         findViewById(R.id.sign_in_button).setOnClickListener(this);
@@ -82,6 +88,7 @@ public class SignInActivity extends AppCompatActivity implements GoogleApiClient
         super.onStart();
 
         OptionalPendingResult<GoogleSignInResult> opr = Auth.GoogleSignInApi.silentSignIn(mGoogleApiClient);
+<<<<<<< HEAD
         opr.setResultCallback(new ResultCallback<GoogleSignInResult>() {
             @Override
             public void onResult(@NonNull GoogleSignInResult googleSignInResult) {
@@ -91,6 +98,28 @@ public class SignInActivity extends AppCompatActivity implements GoogleApiClient
         });
     }*/
     /*
+=======
+        userAlreadyRegistered = false;
+        if (opr.isDone()) {
+            //If the cached credentials are valid the signin result will be available instantly
+            Log.i(TAG, "Got Cached Sign-in");
+            userAlreadyRegistered = true;
+            GoogleSignInResult result = opr.get();
+            handleSignInRequest(result);
+        } else {
+            //If user has not signed in our sign in has expired
+            //showProgressDialog();
+            opr.setResultCallback(new ResultCallback<GoogleSignInResult>() {
+                @Override
+                public void onResult(@NonNull GoogleSignInResult googleSignInResult) {
+                    hideProgressDialog();
+                    handleSignInRequest(googleSignInResult);
+                }
+            });
+        }
+    }
+
+>>>>>>> d5f05734d3ce1c56188fe3aa3e6a2a5edea4ccf3
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -137,6 +166,7 @@ public class SignInActivity extends AppCompatActivity implements GoogleApiClient
             name = acct.getDisplayName();
 
             email = acct.getEmail();
+<<<<<<< HEAD
 
             newUserAccount = new UserAccount(name, email);
             worker.execute(DBWorker.VERIFY_REGISTERED_EMAIL_URL, email);
@@ -144,6 +174,12 @@ public class SignInActivity extends AppCompatActivity implements GoogleApiClient
 
 
             //Log.i(TAG, acct.toString());
+=======
+            if (userAlreadyRegistered)
+                startMapsActivity();
+            else
+                startRegistrationActivity();
+>>>>>>> d5f05734d3ce1c56188fe3aa3e6a2a5edea4ccf3
         } else {
             Log.i(TAG, "NO SIGN IN");
         }
@@ -203,6 +239,7 @@ public class SignInActivity extends AppCompatActivity implements GoogleApiClient
 
         startActivity(registerIntent);
     }
+<<<<<<< HEAD
 
     @Override
     public void taskFinished(boolean isSuccess, JSONObject returnJSON) {
@@ -225,4 +262,6 @@ public class SignInActivity extends AppCompatActivity implements GoogleApiClient
             Log.e(TAG, ex.getMessage());
         }
     }
+=======
+>>>>>>> d5f05734d3ce1c56188fe3aa3e6a2a5edea4ccf3
 }

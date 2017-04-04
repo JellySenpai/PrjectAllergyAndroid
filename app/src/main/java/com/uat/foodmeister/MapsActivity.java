@@ -114,7 +114,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         if (mMap == null)
             mMap = googleMap;
 
+        //LatLng UAT = new LatLng();
+
         displayCurrentLocation(mMap);
+        //loadNearByPlaces(33.376958,-111.975861);
 
         mMap.setOnMarkerClickListener(this);
     }
@@ -131,7 +134,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
             Criteria criteria = new Criteria();
             String bestProvider = locationManager.getBestProvider(criteria, true);
-            Location location = locationManager.getLastKnownLocation(bestProvider);
+            Location location = locationManager.getLastKnownLocation(LocationManager.PASSIVE_PROVIDER);
 
             if (location != null)
             {
@@ -150,7 +153,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         googlePlacesUrl.append("&radius=").append(AppConfig.PROXIMITY_RADIUS);
         googlePlacesUrl.append("&types=").append("restaurant");
         googlePlacesUrl.append("&sensor=true");
+<<<<<<< HEAD
         googlePlacesUrl.append("&key=" + "AIzaSyDuUPsfVHN7RWR5IohI6imgRbQMfxC7it0");
+=======
+        googlePlacesUrl.append("&key=" + "AIzaSyDcS-vAC5NeLZGsZ0UJgYpDZNKmtxy7sz4");
+>>>>>>> d5f05734d3ce1c56188fe3aa3e6a2a5edea4ccf3
 
         Log.i("URL", googlePlacesUrl.toString());
 
@@ -219,7 +226,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         //this is for debug only, this is hard coding the address of UAT for use while in the emulator.
         //LatLng UAT = new LatLng(33.3769580,-111.9758610);
         //latitude = 33.3769580;
-        //longitude = 111.9758610;
+        //longitude = -111.9758610;
 
         LatLng currentLocation = new LatLng(latitude, longitude);
 
