@@ -1,8 +1,11 @@
 package com.uat.foodmeister.Registration;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -18,10 +21,20 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.OptionalPendingResult;
 import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
+import com.uat.foodmeister.AppConfig;
+import com.uat.foodmeister.DB.DBWorker;
+import com.uat.foodmeister.DB.DBWorkerDelegate;
+import com.uat.foodmeister.FMSharedPrefs;
+import com.uat.foodmeister.MainActivity;
 import com.uat.foodmeister.MapsActivity;
 import com.uat.foodmeister.R;
+import com.uat.foodmeister.RegistrationActivity;
+import com.uat.foodmeister.User.UserAccount;
 
-public class SignInActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener, View.OnClickListener {
+import org.json.JSONException;
+import org.json.JSONObject;
+
+public class SignInActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener, View.OnClickListener, DBWorkerDelegate {
 
     private static final String TAG = "SignInActivity";
 
@@ -31,17 +44,20 @@ public class SignInActivity extends AppCompatActivity implements GoogleApiClient
 
     private ProgressDialog mProgressDialog;
 
-    private boolean userAlreadyRegistered = false;
-
     private String name;
 
     private String email;
 
+    private UserAccount newUserAccount;
+
+    private DBWorker worker;
     @Override
     protected void onCreate(Bundle savedInstance) {
         super.onCreate(savedInstance);
         setContentView(R.layout.sign_in_activity);
-        newSignIn();
+
+        worker = new DBWorker();
+        worker.setOnFinishedListener(this);
 
         //Sign in button listener
         findViewById(R.id.sign_in_button).setOnClickListener(this);
@@ -59,34 +75,22 @@ public class SignInActivity extends AppCompatActivity implements GoogleApiClient
 
         SignInButton signInButton = (SignInButton) findViewById(R.id.sign_in_button);
         signInButton.setSize(SignInButton.SIZE_STANDARD);
-        signInButton.setScopes(gso.getScopeArray());
     }
-
+/*
     @Override
     public void onStart(){
         super.onStart();
 
         OptionalPendingResult<GoogleSignInResult> opr = Auth.GoogleSignInApi.silentSignIn(mGoogleApiClient);
-        userAlreadyRegistered = true;
-        if (opr.isDone()) {
-            //If the cached credentials are valid the signin result will be available instantly
-            Log.i(TAG, "Got Cached Sign-in");
-            userAlreadyRegistered = true;
-            GoogleSignInResult result = opr.get();
-            handleSignInRequest(result);
-        } else {
-            //If user has not signed in our sign in has expired
-            //showProgressDialog();
-            opr.setResultCallback(new ResultCallback<GoogleSignInResult>() {
-                @Override
-                public void onResult(@NonNull GoogleSignInResult googleSignInResult) {
-                    hideProgressDialog();
-                    handleSignInRequest(googleSignInResult);
-                }
-            });
-        }
-    }
-
+        opr.setResultCallback(new ResultCallback<GoogleSignInResult>() {
+            @Override
+            public void onResult(@NonNull GoogleSignInResult googleSignInResult) {
+                hideProgressDialog();
+                handleSignInRequest(googleSignInResult);
+            }
+        });
+    }*/
+    /*
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -95,14 +99,20 @@ public class SignInActivity extends AppCompatActivity implements GoogleApiClient
             GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
             handleSignInRequest(result);
         }
-
-    }
+    }*/
 
     @Override
     public void onClick(View v) {
         switch(v.getId()) {
             case R.id.sign_in_button:
-                signIn();
+                OptionalPendingResult<GoogleSignInResult> opr = Auth.GoogleSignInApi.silentSignIn(mGoogleApiClient);
+                opr.setResultCallback(new ResultCallback<GoogleSignInResult>() {
+                    @Override
+                    public void onResult(@NonNull GoogleSignInResult googleSignInResult) {
+                        hideProgressDialog();
+                        handleSignInRequest(googleSignInResult);
+                    }
+                });
                 //TODO Push Sign in info to database
                 break;
         }
@@ -128,20 +138,26 @@ public class SignInActivity extends AppCompatActivity implements GoogleApiClient
 
             email = acct.getEmail();
 
-            if (userAlreadyRegistered)
-                startMapsActivity();
-            else
-                startRegisterGenderActivity();
+            newUserAccount = new UserAccount(name, email);
+            worker.execute(DBWorker.VERIFY_REGISTERED_EMAIL_URL, email);
 
+
+
+            //Log.i(TAG, acct.toString());
         } else {
             Log.i(TAG, "NO SIGN IN");
         }
+
     }
-
+    private void startRegistrationActivity(){
+        Intent intent = new Intent(this, RegistrationActivity.class);
+        startActivity(intent);
+    }
     private void signIn() {
-        Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
+        //Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
 
-        startActivityForResult(signInIntent, SIGN_IN);
+        //startActivityForResult(signInIntent, SIGN_IN);
+
     }
 
     private void signOut() {
@@ -175,34 +191,38 @@ public class SignInActivity extends AppCompatActivity implements GoogleApiClient
         }
     }
 
-    private void startMapsActivity() {
+    private void startRegisterationActivity() {
         hideProgressDialog();
 
-        Intent mapsIntent = new Intent(this, MapsActivity.class);
+        Intent registerIntent = new Intent(this, RegistrationActivity.class);
 
-        mapsIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        registerIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 
-        startActivity(mapsIntent);
+        if(newUserAccount != null)
+            registerIntent.putExtra("UserAccount", newUserAccount);
+
+        startActivity(registerIntent);
     }
 
-    private void startRegisterGenderActivity() {
-        hideProgressDialog();
+    @Override
+    public void taskFinished(boolean isSuccess, JSONObject returnJSON) {
+        try {
+            boolean accountExists = returnJSON.getBoolean("account_exists");
+            if(accountExists){
+                //SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+                FMSharedPrefs.save(this, AppConfig.ACCOUNT_HOLDER_EMAIL, returnJSON.getString("email"));
+                FMSharedPrefs.save(this, AppConfig.ACCOUNT_HOLDER_NAME, returnJSON.getString("full Name"));
 
-        Intent genderIntent = new Intent(this, GenderActivity.class);
+                Intent intent = new Intent(this, MainActivity.class);
+                intent.putExtra("UserAccount", newUserAccount);
+                startActivity(intent);
+            }
+            else{
+                startRegisterationActivity();
+            }
 
-        genderIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-
-      //  UserProfile.name = name;
-
-      //  UserProfile.email = email;
-
-        Log.i(TAG, "Stashing " + name);
-
-        Log.i(TAG, "Stashing " + email);
-
-        startActivity(genderIntent);
-    }
-    private void newSignIn(){
-        startMapsActivity();
+        }catch(JSONException ex){
+            Log.e(TAG, ex.getMessage());
+        }
     }
 }

@@ -1,64 +1,77 @@
 package com.uat.foodmeister;
 
 import android.content.Context;
-import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
-import android.support.design.widget.Snackbar;
-import android.support.v4.app.FragmentActivity;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
+import android.support.design.widget.Snackbar;
+import android.support.v4.app.Fragment;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.Toast;
+import android.view.ViewGroup;
 
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.MapFragment;
+import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.google.android.gms.maps.GoogleMap.OnMarkerClickListener;
-import com.uat.foodmeister.Permissions.PermissionUtil;
+import com.uat.foodmeister.DB.DBWorkerDelegate;
 import com.uat.foodmeister.Permissions.Permissions;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class MapsActivity extends FragmentActivity implements OnMapReadyCallback, LocationListener, OnMarkerClickListener {
+import static android.content.Context.LOCATION_SERVICE;
 
+
+/**
+ * A simple {@link Fragment} subclass.
+ * Activities that contain this fragment must implement the
+ * {@link MapFragment.OnFragmentInteractionListener} interface
+ * to handle interaction events.
+ */
+public class MapFragment extends Fragment implements OnMapReadyCallback, LocationListener, GoogleMap.OnMarkerClickListener {
     private GoogleMap mMap;
+
+    private MapView mapView;
 
     private CoordinatorLayout mainCoordinateLayout;
 
-    private LocationManager locationManager;
 
     private Snackbar gpsDisabledSnackbar;
 
+    private MainActivity mainActivity;
+
+    private static final String TAG = "MapFragment";
+
+
+    private OnFragmentInteractionListener mListener;
+
+    public MapFragment() {
+        // Required empty public constructor
+    }
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstance)
+    {
+        super.onCreate(savedInstance);
+        mainActivity = (MainActivity)getActivity();
 
-        super.onCreate(savedInstanceState);
-
-        setContentView(R.layout.activity_maps);
-
-
-        mainCoordinateLayout = (CoordinatorLayout) findViewById(R.id.mainCoordinatorLayout);
-
-        locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
-
-        Permissions permissions = Permissions.getInstance(this, this, locationManager);
+        Permissions permissions = Permissions.getInstance(getContext(), getActivity(), mainActivity.locationManager);
 
         if (Permissions.isGooglePlayServicesAvailable()) {
 
@@ -68,15 +81,67 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 Permissions.requestLocationPermissions();
             }
         }
-
-
-        // Obtain the SupportMapFragment and get notified when the map is ready to be used.
-        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
-                .findFragmentById(R.id.map);
-
-        mapFragment.getMapAsync(this);
+    }
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        View v = inflater.inflate(R.layout.fragment_map2, container, false);
+        mapView = (MapView) v.findViewById(R.id.maps);
+        mapView.onCreate(savedInstanceState);
+        mapView.onResume();
+        mapView.getMapAsync(this);
+        return v;
+        //return inflater.inflate(R.layout.fragment_map2, container, false);
     }
 
+    @Override
+    public void onPause() {
+        super.onPause();
+        Log.i(TAG, "OnPause() Ran");
+        //mainActivity.locationManager.up
+    }
+
+    // TODO: Rename method, update argument and hook method into UI event
+    public void onButtonPressed(Uri uri) {
+        if (mListener != null) {
+            mListener.onFragmentInteraction(uri);
+        }
+    }
+
+    @Override
+    public void onLocationChanged(Location location)
+    {
+        Log.i("Location", "Updating Location");
+
+        double latitude = location.getLatitude();
+
+        double longitude = location.getLongitude();
+
+        //this is for debug only, this is hard coding the address of UAT for use while in the emulator.
+        //LatLng UAT = new LatLng(33.3769580,-111.9758610);
+        //latitude = 33.3769580;
+        //longitude = 111.9758610;
+
+        LatLng currentLocation = new LatLng(latitude, longitude);
+
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(currentLocation));
+
+        loadNearByPlaces(latitude, longitude);
+    }
+
+    @Override
+    public void onStatusChanged(String provider, int status, Bundle extras) {
+
+    }
+    private void reloadActivity()
+    {
+        getActivity().recreate();
+    }
+    private void deniedLocation()
+    {
+        getActivity().finish();
+    }
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
 
@@ -84,7 +149,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         {
             case AppConfig.REQUEST_LOCATION: {
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                   reloadActivity();
+                    reloadActivity();
                 }
                 else if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_DENIED) {
                     deniedLocation();
@@ -95,17 +160,56 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 break;
         }
     }
-
-    private void reloadActivity()
+    @Override
+    public void onProviderEnabled(String provider)
     {
-        this.recreate();
+        if (provider.equals("gps"))
+        {
+            gpsDisabledSnackbar.dismiss();
+
+            displayCurrentLocation(mMap);
+        }
     }
 
-    private void deniedLocation()
+    @Override
+    public void onProviderDisabled(String provider)
     {
-        Toast.makeText(this, R.string.location_permission_rational, Toast.LENGTH_LONG).show();
+        if (provider.equals("gps"))
+        {
+            gpsDisabledSnackbar = Snackbar.make(mainCoordinateLayout, "Cannot Access GPS Services", Snackbar.LENGTH_INDEFINITE);
 
-        finish();
+            View gpsSnackbarView = gpsDisabledSnackbar.getView();
+
+            gpsSnackbarView.setBackgroundColor(Color.RED);
+
+            gpsDisabledSnackbar.show();
+
+            mMap.clear();
+
+        }
+    }
+
+    @Override
+    public boolean onMarkerClick(Marker marker)
+    {
+
+        Log.d("Latitude", "value: " + marker.getPosition().latitude);
+
+        Log.d("Longitude", "value: " + marker.getPosition().longitude);
+
+        String latitude, longitude;
+
+        latitude = Double.toString(marker.getPosition().latitude);
+
+        longitude = Double.toString(marker.getPosition().longitude);
+
+        String type = "location";
+
+        BackgroundWorker backgroundWorker = new BackgroundWorker(getActivity());
+
+        backgroundWorker.execute(type, latitude, longitude);
+
+        return false;
     }
 
     @Override
@@ -119,27 +223,36 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMap.setOnMarkerClickListener(this);
     }
 
-    @SuppressWarnings("MissingPermission") // Checked manually using isLocationServicePermissionsDenied()
+
+    public interface OnFragmentInteractionListener {
+        // TODO: Update argument type and name
+        void onFragmentInteraction(Uri uri);
+    }
+
     private void displayCurrentLocation(GoogleMap mMap) {
 
         //If locations services is enabled
-        if (!Permissions.isLocationServicePermissionsDenied())
-        {
+        try{
+        if (!Permissions.isLocationServicePermissionsDenied()) {
             mMap.setMyLocationEnabled(true);
             mMap.getUiSettings().setCompassEnabled(true);
             mMap.getUiSettings().setZoomControlsEnabled(true);
 
             Criteria criteria = new Criteria();
-            String bestProvider = locationManager.getBestProvider(criteria, true);
-            Location location = locationManager.getLastKnownLocation(bestProvider);
+            String bestProvider = mainActivity.locationManager.getBestProvider(criteria, true);
+            Location location = mainActivity.locationManager.getLastKnownLocation(bestProvider);
 
-            if (location != null)
-            {
+            if (location != null) {
                 onLocationChanged(location);
             }
 
             mMap.animateCamera(CameraUpdateFactory.zoomTo(15));
-            locationManager.requestLocationUpdates(bestProvider, AppConfig.MIN_TIME_BW_UPDATES, AppConfig.MIN_DISTANCE_BW_UPDATES, this);
+            //mainActivity.locationManager.requestLocationUpdates(bestProvider, AppConfig.MIN_TIME_BW_UPDATES, AppConfig.MIN_DISTANCE_BW_UPDATES, this);
+            mainActivity.locationManager.requestSingleUpdate(bestProvider, this, null);
+        }
+        } catch (SecurityException ex)
+        {
+            deniedLocation();
         }
     }
 
@@ -206,86 +319,5 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             Log.i("JSON ERROR", "parseLocation Error= " + e.getMessage());
         }
     }
-
-    @Override
-    public void onLocationChanged(Location location) {
-
-        Log.i("Location", "Updating Location");
-
-        double latitude = location.getLatitude();
-
-        double longitude = location.getLongitude();
-
-        //this is for debug only, this is hard coding the address of UAT for use while in the emulator.
-        //LatLng UAT = new LatLng(33.3769580,-111.9758610);
-        //latitude = 33.3769580;
-        //longitude = 111.9758610;
-
-        LatLng currentLocation = new LatLng(latitude, longitude);
-
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(currentLocation));
-
-        loadNearByPlaces(latitude, longitude);
-
-    }
-
-    @Override
-    public void onStatusChanged(String provider, int status, Bundle extras) {
-
-    }
-
-    @Override
-    public void onProviderEnabled(String provider) {
-
-        if (provider.equals("gps"))
-        {
-            gpsDisabledSnackbar.dismiss();
-
-            displayCurrentLocation(mMap);
-        }
-
-    }
-
-    @Override
-    public void onProviderDisabled(String provider) {
-
-       if (provider.equals("gps"))
-       {
-           gpsDisabledSnackbar = Snackbar.make(mainCoordinateLayout, "Cannot Access GPS Services", Snackbar.LENGTH_INDEFINITE);
-
-           View gpsSnackbarView = gpsDisabledSnackbar.getView();
-
-           gpsSnackbarView.setBackgroundColor(Color.RED);
-
-           gpsDisabledSnackbar.show();
-
-           mMap.clear();
-
-       }
-    }
-
-    @Override
-    public boolean onMarkerClick(Marker marker) {
-        Log.d("Latitude", "value: " + marker.getPosition().latitude);
-
-        Log.d("Longitude", "value: " + marker.getPosition().longitude);
-
-        String latitude, longitude;
-
-        latitude = Double.toString(marker.getPosition().latitude);
-
-        longitude = Double.toString(marker.getPosition().longitude);
-
-        String type = "location";
-
-        BackgroundWorker backgroundWorker = new BackgroundWorker(this);
-
-        backgroundWorker.execute(type, latitude, longitude);
-
-        return false;
-    }
-    public void onClick(View v){
-        Intent intent = new Intent(this, RegistrationActivity.class);
-        startActivity(intent);
-    }
+    //*/
 }

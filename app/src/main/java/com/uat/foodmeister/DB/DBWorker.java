@@ -1,15 +1,8 @@
-package com.uat.foodmeister.Registration;
+package com.uat.foodmeister.DB;
 
-import android.app.AlertDialog;
-import android.content.Context;
 import android.os.AsyncTask;
 import android.text.Html;
 import android.util.Log;
-import android.util.StringBuilderPrinter;
-
-import com.uat.foodmeister.DB.DBWorkerDelegate;
-import com.uat.foodmeister.User.UserAccount;
-import com.uat.foodmeister.User.UserProfile;
 
 import org.json.JSONObject;
 
@@ -25,105 +18,60 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
-import java.nio.Buffer;
-import java.security.spec.ECField;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
 
-public class DataBaseHelper extends AsyncTask<UserAccount,Void,JSONObject> {
+/**
+ * Created by rayhardi on 3/10/2017.
+ */
 
-    private final String TAG = "DBHelper";
-
-    private String email, name, gender;
-
-    private int houseHoldSize, numOfProfiles;
-
-    private UserAccount userAccount;
-    private UserProfile userProfile;
-
-    private Context context;
-
+public class DBWorker extends AsyncTask<String, Void, JSONObject>
+{
+    private final String TAG = "DBWorker";
     private DBWorkerDelegate delegate;
-
-    private HashMap<String, Integer> allergyMap;
-
-    public DataBaseHelper(UserAccount account) {
-        this.userAccount = account;
-        this.userProfile = account.getUserProfile(account.getName());
-    }
-
-    public void setOnFinishedListener(DBWorkerDelegate delegate){
+    private String URL;
+    public void setOnFinishedListener(DBWorkerDelegate delegate)
+    {
         this.delegate = delegate;
     }
+    public static final String VERIFY_REGISTERED_EMAIL_URL = "http://thefoodmeister.com/verify-login-android.php";
 
     @Override
-    protected JSONObject doInBackground(UserAccount... params) {
-
-        String login_url = "http://thefoodmeister.com/register-new-user.php";
-
-        try {
-
-            URL url = new URL(login_url);
+    protected JSONObject doInBackground(String... params)
+    {
+        try{
+            URL url = new URL(params[0]);
+            String email = params[1];
             HttpURLConnection httpURLConnection = (HttpURLConnection)url.openConnection();
             httpURLConnection.setRequestMethod("POST");
             httpURLConnection.setDoOutput(true);
             httpURLConnection.setDoInput(true);
             OutputStream outputStream = httpURLConnection.getOutputStream();
-
             BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream, "UTF-8"));
-
-            String post_data = postDataReturn("fullName", userAccount.getName()) + "&" + postDataReturn("email", userAccount.getEmail());
-
-
-                    //+ "&" + postDataReturn("houseHoldSize", "1") + "&"
-           // + postDataReturn("numOfProfiles", "1") + "&" + postDataReturn("gender", userProfile.getGender().toString()) + "&";
-
-           /* Iterator it = userProfile.getAllergyMap().entrySet().iterator();
-
-            while (it.hasNext()) {
-                Map.Entry pair = (Map.Entry)it.next();
-                post_data = post_data + postDataReturn(pair.getKey().toString(), pair.getValue().toString()) + "&";
-            }
-
-            post_data = post_data.substring(0, post_data.length() -1);
-            */
-            Log.i(TAG, post_data);
-
+            String post_data = URLEncoder.encode("email", "UTF-8")+"="+URLEncoder.encode(email, "UTF-8");
             bufferedWriter.write(post_data);
-
             bufferedWriter.flush();
-
             bufferedWriter.close();
-
-            outputStream.close();
 
             JSONObject jsonObject = new JSONObject(readURLReturnData(httpURLConnection));
 
             httpURLConnection.disconnect();
-
             return jsonObject;
-
-        } catch (MalformedURLException ex) {
-            Log.e(TAG, ex.getMessage());
-        } catch (IOException ex) {
-            Log.e(TAG, ex.getMessage());
-        }catch (Exception ex){
+    }
+        catch (MalformedURLException ex)
+        {
             Log.e(TAG, ex.getMessage());
         }
-
+        catch (IOException ex) {
+            Log.e(TAG, ex.getMessage());
+        }
+        catch (Exception ex){
+            Log.e(TAG, ex.getMessage());
+        }
         return null;
     }
-
     @Override
     protected void onPostExecute(JSONObject result) {
         this.delegate.taskFinished(true, result);
     }
-
-    String postDataReturn(String key, String val) throws IOException{
-        return  URLEncoder.encode(key, "UTF-8")+"="+URLEncoder.encode(val, "UTF-8");
-    }
-
     private String readURLReturnData(HttpURLConnection connection){
         String result = null;
         StringBuffer sb = new StringBuffer();
@@ -152,4 +100,5 @@ public class DataBaseHelper extends AsyncTask<UserAccount,Void,JSONObject> {
         }
         return result;
     }
+
 }

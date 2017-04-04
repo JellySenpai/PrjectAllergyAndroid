@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_map"
+            android:icon="@drawable/map_icon_black"
+            android:title="Maps" />
+        <item
+            android:id="@+id/nav_profile"
+            android:icon="@drawable/edit_icon_yes"
+            android:title="Profile" />
+        <item
+            android:id="@+id/nav_slideshow"
+            android:icon="@drawable/setting_menu_icon"
+            android:title="Settings" />
+        <item
+            android:id="@+id/nav_logout"
+            android:icon="@drawable/signout_icon"
+            android:title="Logout" />
+    </group>
+
+    <item android:title="About Us">
+        <menu>
+            <item
+                android:id="@+id/nav_contact"
+                android:icon="@drawable/fm_custom_map_marker_1"
+                android:title="Contact Us" />
+            <item
+                android:id="@+id/nav_license"
+                android:icon="@drawable/fmlogo_notext"
+                android:title="License" />
+        </menu>
+    </item>
+
+</menu>
