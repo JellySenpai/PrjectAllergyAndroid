@@ -85,18 +85,30 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+<<<<<<< HEAD
+=======
+        // Inflate the layout for this fragment
+>>>>>>> 8a7b2569e5b51f89d471add4d821594c082d2ac0
         View v = inflater.inflate(R.layout.fragment_map2, container, false);
         mapView = (MapView) v.findViewById(R.id.maps);
         mapView.onCreate(savedInstanceState);
         mapView.onResume();
         mapView.getMapAsync(this);
         return v;
+<<<<<<< HEAD
+=======
+        //return inflater.inflate(R.layout.fragment_map2, container, false);
+>>>>>>> 8a7b2569e5b51f89d471add4d821594c082d2ac0
     }
 
     @Override
     public void onPause() {
         super.onPause();
         Log.i(TAG, "OnPause() Ran");
+<<<<<<< HEAD
+=======
+        //mainActivity.locationManager.up
+>>>>>>> 8a7b2569e5b51f89d471add4d821594c082d2ac0
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -115,6 +127,13 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
 
         double longitude = location.getLongitude();
 
+<<<<<<< HEAD
+=======
+        //this is for debug only, this is hard coding the address of UAT for use while in the emulator.
+        //LatLng UAT = new LatLng(33.3769580,-111.9758610);
+        //latitude = 33.3769580;
+        //longitude = 111.9758610;
+>>>>>>> 8a7b2569e5b51f89d471add4d821594c082d2ac0
 
         LatLng currentLocation = new LatLng(latitude, longitude);
 
@@ -251,7 +270,11 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
 
     private void loadNearByPlaces(double latitude, double longitude)
     {
+<<<<<<< HEAD
         StringBuilder googlePlacesUrl = new StringBuilder("https://maps.googleapis.com/maps/api/place/textsearch/json?");
+=======
+        StringBuilder googlePlacesUrl = new StringBuilder("https://maps.googleapis.com/maps/api/place/nearbysearch/json?");
+>>>>>>> 8a7b2569e5b51f89d471add4d821594c082d2ac0
         googlePlacesUrl.append("location=").append(latitude).append(",").append(longitude);
         googlePlacesUrl.append("&radius=").append(AppConfig.PROXIMITY_RADIUS);
         googlePlacesUrl.append("&types=").append("restaurant");

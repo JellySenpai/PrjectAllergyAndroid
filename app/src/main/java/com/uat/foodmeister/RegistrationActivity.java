@@ -36,22 +36,41 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
     private Calendar birthDate;
 
 
+<<<<<<< HEAD
     UserAccount newUserAccount;
+=======
+<<<<<<< HEAD
+    UserAccount newUserAccount;
+=======
+
+>>>>>>> d5f05734d3ce1c56188fe3aa3e6a2a5edea4ccf3
+>>>>>>> 8a7b2569e5b51f89d471add4d821594c082d2ac0
     UserProfile newUserProfile;
 
     DataBaseHelper dbHelper;
 
     private static final String TAG = "RegistrationActivity";
 
+<<<<<<< HEAD
     private EditText nameField, emailEntry;
 
     private TextView dateEdit;
+=======
+<<<<<<< HEAD
+    private EditText nameField, emailEntry;
+
+    private TextView dateEdit;
+=======
+    private EditText dateEdit, nameField, emailEntry;
+>>>>>>> d5f05734d3ce1c56188fe3aa3e6a2a5edea4ccf3
+>>>>>>> 8a7b2569e5b51f89d471add4d821594c082d2ac0
 
     private Spinner userGender;
 
     private boolean bDaySet = false;
     private Button registerProfile;
 
+<<<<<<< HEAD
 
 
 
@@ -70,6 +89,51 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
         dateEdit = (TextView) findViewById(R.id.bDayText);
         dateEdit.setOnClickListener(this);
         dateEdit.setShowSoftInputOnFocus(false);
+=======
+<<<<<<< HEAD
+
+
+
+
+
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        newUserAccount = (UserAccount) getIntent().getSerializableExtra("UserAccount");
+
+        dbHelper = new DataBaseHelper(newUserAccount);
+        dbHelper.setOnFinishedListener(this);
+
+        dateFormatter = new SimpleDateFormat("MM-dd-yyyy", Locale.US);
+        dateEdit = (TextView) findViewById(R.id.bDayText);
+        dateEdit.setOnClickListener(this);
+        dateEdit.setShowSoftInputOnFocus(false);
+=======
+
+
+
+
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        dateFormatter = new SimpleDateFormat("MM-dd-yyyy", Locale.US);
+
+        dateEdit = (EditText) findViewById(R.id.dateEdit);
+        //dateEdit.setInputType(InputType.emailEntry);
+        nameField = (EditText) findViewById(R.id.users_name);
+        userGender = (Spinner) findViewById(R.id.genderEntry);
+
+        registerProfile = (Button) findViewById(R.id.btnSubmit);
+
+
+        //setDateTimeField();
+
+    }
+    private void setDateTimeField() {
+        //dateEdit.setOnClickListener(this);
+>>>>>>> d5f05734d3ce1c56188fe3aa3e6a2a5edea4ccf3
+>>>>>>> 8a7b2569e5b51f89d471add4d821594c082d2ac0
 
         nameField = (EditText) findViewById(R.id.users_name);
         nameField.setText(newUserAccount.getName());
@@ -100,7 +164,7 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
             correctInfo = false;
         }
 
-        UserGender gender = UserGender.DEFAULT;
+       /* UserGender gender = UserGender.DEFAULT;
 
         String tempGenderContainer = userGender.getItemAtPosition(userGender.getSelectedItemPosition()).toString();
         switch (tempGenderContainer) {
@@ -118,11 +182,15 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
                 correctInfo = false;
                 break;
 
-        }
+        }*/
         String birthdate = dateEdit.getText().toString();
         if(TextUtils.isEmpty(birthdate)){
             correctInfo = false;
         }
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> 8a7b2569e5b51f89d471add4d821594c082d2ac0
 
         newUserProfile = new UserProfile(newUserAccount.getName(), gender, birthdate, newUserAccount.getEmail());
         newUserAccount.addUserProfile(newUserProfile);
@@ -135,6 +203,10 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
         try{
             boolean wasRegistered = returnJSON.getBoolean("account_registered");
             if(wasRegistered){
+<<<<<<< HEAD
+=======
+                //TODO: place name and enail into sharedPreferences before navigating to MainActivity
+>>>>>>> 8a7b2569e5b51f89d471add4d821594c082d2ac0
                 FMSharedPrefs.save(this, AppConfig.ACCOUNT_HOLDER_EMAIL, newUserAccount.getEmail());
                 FMSharedPrefs.save(this, AppConfig.ACCOUNT_HOLDER_NAME, newUserAccount.getName());
                 Intent intent = new Intent(this, MainActivity.class);
@@ -144,6 +216,19 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
             }
         }catch(JSONException ex){
             Log.e(TAG, ex.getMessage());
+<<<<<<< HEAD
+=======
+=======
+        if(correctInfo){
+            newUserProfile = new UserProfile(name, UserGender.DEFAULT, birthdate, "test@gamil.com");
+
+            Log.i(TAG, newUserProfile.toString());
+            //here will transition to next Activity which will get the allergy info
+            Intent intent = new Intent(this, AllergyActivity.class);
+            intent.putExtra("UserProfile", newUserProfile);
+            startActivity(intent);
+>>>>>>> d5f05734d3ce1c56188fe3aa3e6a2a5edea4ccf3
+>>>>>>> 8a7b2569e5b51f89d471add4d821594c082d2ac0
         }
     }
    public void showMeDates(View view)

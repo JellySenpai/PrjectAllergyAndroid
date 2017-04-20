@@ -41,6 +41,9 @@ dependencies {
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
+
+
+
     compile 'com.android.support:appcompat-v7:24.2.1'
     compile 'com.android.support:design:24.2.1'
     compile 'com.mcxiaoke.volley:library:1.0.19'
@@ -49,7 +52,15 @@ dependencies {
     compile 'com.google.firebase:firebase-auth:10.2.0'
     compile 'com.github.dmytrodanylyk.android-process-button:library:1.0.4'
     compile 'pl.droidsonroids.gif:android-gif-drawable:1.1.17'
+<<<<<<< HEAD
     compile 'com.android.support:support-v4:24.2.1'
+=======
+<<<<<<< HEAD
+    compile 'com.android.support:support-v4:24.2.1'
+=======
+
+>>>>>>> d5f05734d3ce1c56188fe3aa3e6a2a5edea4ccf3
+>>>>>>> 8a7b2569e5b51f89d471add4d821594c082d2ac0
     testCompile 'junit:junit:4.12'
 }
 apply plugin: 'com.google.gms.google-services'

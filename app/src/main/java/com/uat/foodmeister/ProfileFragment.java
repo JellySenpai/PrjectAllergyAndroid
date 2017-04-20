@@ -1,18 +1,25 @@
 package com.uat.foodmeister;
 
 
+<<<<<<< HEAD
 import android.content.Context;
 import android.nfc.Tag;
+=======
+>>>>>>> 8a7b2569e5b51f89d471add4d821594c082d2ac0
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.AppLaunchChecker;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+<<<<<<< HEAD
 import android.util.Log;
+=======
+>>>>>>> 8a7b2569e5b51f89d471add4d821594c082d2ac0
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+<<<<<<< HEAD
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -29,6 +36,14 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+=======
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.uat.foodmeister.User.UserGender;
+import com.uat.foodmeister.User.UserProfile;
+
+>>>>>>> 8a7b2569e5b51f89d471add4d821594c082d2ac0
 import java.util.HashMap;
 
 /**
@@ -37,6 +52,7 @@ import java.util.HashMap;
 public class ProfileFragment extends Fragment  {
 
     FragmentManager manager;
+<<<<<<< HEAD
     DBProfileRetrieve dbProfileRetrieve;
 
     private boolean itemChanged;
@@ -50,6 +66,14 @@ public class ProfileFragment extends Fragment  {
     private Context context;
     private final String Tag = "TAGMOTHAFUCKA";
     private String name,email;
+=======
+
+    private boolean itemChanged;
+    UserProfile userProfile;
+    private MainActivity mainActivity;
+    private Button btn_addProf;
+    Toast toasty;
+>>>>>>> 8a7b2569e5b51f89d471add4d821594c082d2ac0
 
 
 
@@ -64,6 +88,7 @@ public class ProfileFragment extends Fragment  {
         super.onCreate(savedInstanceState);
         manager = getFragmentManager();
 
+<<<<<<< HEAD
         mainActivity = (MainActivity)getActivity();
         //dbWorker = new BackgroundWorker(userAccount);
 
@@ -71,6 +96,8 @@ public class ProfileFragment extends Fragment  {
 
 
 
+=======
+>>>>>>> 8a7b2569e5b51f89d471add4d821594c082d2ac0
     }
 
     @Override
@@ -78,6 +105,7 @@ public class ProfileFragment extends Fragment  {
                              Bundle savedInstanceState)
     {
         mainActivity = (MainActivity) getActivity();
+<<<<<<< HEAD
         View v = inflater.inflate(R.layout.activity_mainprofile, container, false);
         emailEntry = (TextView) v.findViewById(R.id.textView7);
         emailE = (EditText) v.findViewById(R.id.date_holder);
@@ -95,6 +123,16 @@ public class ProfileFragment extends Fragment  {
                // mainActivity.changeFragment(AppConfig.LOAD_ADD_PROFILE_FRAGMENT, "Raymond Harding");
             //}
         //});
+=======
+        View v = inflater.inflate(R.layout.fragment_profile, container, false);
+        btn_addProf = (Button)v.findViewById(R.id.btn_addProfile);
+        btn_addProf.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mainActivity.changeFragment(AppConfig.LOAD_ADD_PROFILE_FRAGMENT, "Raymond Harding");
+            }
+        });
+>>>>>>> 8a7b2569e5b51f89d471add4d821594c082d2ac0
         if (mainActivity.userAccount.isAtMaxProfiles())
         {
             btn_addProf.setEnabled(false);
@@ -105,11 +143,14 @@ public class ProfileFragment extends Fragment  {
 
     }
 
+<<<<<<< HEAD
     public void onLoadProfiles()
     {
 
     }
 
+=======
+>>>>>>> 8a7b2569e5b51f89d471add4d821594c082d2ac0
     public void addProfiles()
     {
 

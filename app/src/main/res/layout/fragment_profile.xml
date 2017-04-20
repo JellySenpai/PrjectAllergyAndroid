@@ -5,6 +5,7 @@
     tools:context="com.uat.foodmeister.ProfileFragment">
 
     <!-- TODO: Update blank fragment layout -->
+<<<<<<< HEAD
 
     <TextView
         android:layout_width="wrap_content"
@@ -185,11 +186,27 @@
          android:layout_width="wrap_content"
          android:layout_height="wrap_content"
          android:id="@+id/checkBox" />-->
+=======
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="hello_ghjmrfgyjblank_fragment" />
+
+    <CheckBox
+        android:text="CheckBox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/checkBox" />
+>>>>>>> 8a7b2569e5b51f89d471add4d821594c082d2ac0
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+<<<<<<< HEAD
         android:id="@+id/button"
+=======
+        android:id="@+id/btn_addProfile"
+>>>>>>> 8a7b2569e5b51f89d471add4d821594c082d2ac0
         android:text="Add" />
 
 </FrameLayout>

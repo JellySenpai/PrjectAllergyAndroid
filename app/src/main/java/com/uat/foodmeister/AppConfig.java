@@ -28,6 +28,9 @@ public final class AppConfig {
     public static final int LOAD_ADD_PROFILE_FRAGMENT = 12;
 
     public static final int TIME_BEFORE_REFRESH =600000;  //miliseconds = 1 min
+<<<<<<< HEAD
 
     public static final String[] TRACKED_ALLERGIES = {"milk", "egg", "wheat","soy","peanut","fish","shellfish","tree_nut"};
+=======
+>>>>>>> 8a7b2569e5b51f89d471add4d821594c082d2ac0
 }

@@ -2,7 +2,15 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent" android:layout_height="match_parent"
+<<<<<<< HEAD
     android:background="@mipmap/foodmeisterback">
+=======
+<<<<<<< HEAD
+    android:background="@mipmap/foodmeisterback">
+=======
+    android:background="@drawable/bg_fmlogo">
+>>>>>>> d5f05734d3ce1c56188fe3aa3e6a2a5edea4ccf3
+>>>>>>> 8a7b2569e5b51f89d471add4d821594c082d2ac0
 
     <TextView
         android:layout_width="wrap_content"

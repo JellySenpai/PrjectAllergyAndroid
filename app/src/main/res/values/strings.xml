@@ -21,6 +21,10 @@
     <color name="light_blue">#92cdde</color>
     <color name="purple">#ae006f</color>
     <string name="gender_prompt"></string>
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> 8a7b2569e5b51f89d471add4d821594c082d2ac0
     <string name="drawer_open">Open navigation drawer</string>\
     <string name="drawer_close"> Close navigation drawer</string>
     <string name="android_client_id">129899081655-24e7q4q5mk0tla2gjq25s6du2jog0988.apps.googleusercontent.com</string>
@@ -28,6 +32,16 @@
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="action_settings">Settings</string>
+<<<<<<< HEAD
+=======
+=======
+    <string name = "drawer_open">Open navigation drawer</string>\
+    <string name = "drawer_close" > Close navigation drawer</string>
+    <string name = "android_client_id">129899081655-24e7q4q5mk0tla2gjq25s6du2jog0988.apps.googleusercontent.com</string>
+    <string name = "title_sign_in"></string>
+
+>>>>>>> d5f05734d3ce1c56188fe3aa3e6a2a5edea4ccf3
+>>>>>>> 8a7b2569e5b51f89d471add4d821594c082d2ac0
 
 
     <string-array name="gender_array">

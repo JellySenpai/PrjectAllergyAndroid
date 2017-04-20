@@ -1,7 +1,10 @@
 package com.uat.foodmeister.User;
 
+<<<<<<< HEAD
 import android.widget.Button;
 
+=======
+>>>>>>> 8a7b2569e5b51f89d471add4d821594c082d2ac0
 import java.io.Serializable;
 import java.util.ArrayList;
 
@@ -18,7 +21,10 @@ public class UserAccount implements Serializable
 
     protected final int maxUserProfile = 1;
     protected ArrayList<UserProfile> userProfiles;
+<<<<<<< HEAD
     protected Button button;
+=======
+>>>>>>> 8a7b2569e5b51f89d471add4d821594c082d2ac0
 
 
     public UserAccount(String name, String email)
@@ -71,7 +77,10 @@ public class UserAccount implements Serializable
         else
         {
             //Write an exception that limits user profile
+<<<<<<< HEAD
 
+=======
+>>>>>>> 8a7b2569e5b51f89d471add4d821594c082d2ac0
         }
     }
 
@@ -90,11 +99,14 @@ public class UserAccount implements Serializable
         }
         return null;
     }
+<<<<<<< HEAD
 
     public ArrayList <UserProfile> getAllUserProfiles()
     {
         return this.userProfiles;
     }
+=======
+>>>>>>> 8a7b2569e5b51f89d471add4d821594c082d2ac0
     private void loadUserProfile()
     {
         this.userProfiles = new ArrayList<UserProfile>();
@@ -105,9 +117,12 @@ public class UserAccount implements Serializable
         return this.userProfiles.size() == this.maxUserProfile;
     }
 
+<<<<<<< HEAD
     public void setNewProfiles(ArrayList<UserProfile> profiles)
     {
         this.userProfiles = profiles;
     }
 
+=======
+>>>>>>> 8a7b2569e5b51f89d471add4d821594c082d2ac0
 }

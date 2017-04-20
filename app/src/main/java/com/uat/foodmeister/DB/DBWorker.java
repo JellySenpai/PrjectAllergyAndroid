@@ -18,8 +18,11 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
+<<<<<<< HEAD
 import com.uat.foodmeister.User.UserAccount;
 import com.uat.foodmeister.User.UserProfile;
+=======
+>>>>>>> 8a7b2569e5b51f89d471add4d821594c082d2ac0
 
 /**
  * Created by rayhardi on 3/10/2017.

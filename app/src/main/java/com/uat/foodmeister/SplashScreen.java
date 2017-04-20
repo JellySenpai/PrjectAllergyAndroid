@@ -6,6 +6,10 @@ package com.uat.foodmeister;
 
 import android.app.Activity;
 import android.content.Intent;
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> 8a7b2569e5b51f89d471add4d821594c082d2ac0
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -19,6 +23,16 @@ import static com.google.android.gms.wearable.DataMap.TAG;
 public class SplashScreen extends Activity {
     boolean userLoggedIn = false;
     String email, name;
+<<<<<<< HEAD
+=======
+=======
+import android.os.Bundle;
+
+import com.uat.foodmeister.Registration.SignInActivity;
+
+public class SplashScreen extends Activity {
+>>>>>>> d5f05734d3ce1c56188fe3aa3e6a2a5edea4ccf3
+>>>>>>> 8a7b2569e5b51f89d471add4d821594c082d2ac0
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -31,6 +45,10 @@ public class SplashScreen extends Activity {
             {
                 try
                 {
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> 8a7b2569e5b51f89d471add4d821594c082d2ac0
                     Log.i("SplashScreen", "Part 1");
 
                     email = FMSharedPrefs.getString(getApplicationContext(), AppConfig.ACCOUNT_HOLDER_EMAIL,"god@test.com");
@@ -42,12 +60,22 @@ public class SplashScreen extends Activity {
                     Log.i(TAG, "Part 2");
                     sleep(3000);
 
+<<<<<<< HEAD
+=======
+=======
+                    sleep(3000);
+>>>>>>> d5f05734d3ce1c56188fe3aa3e6a2a5edea4ccf3
+>>>>>>> 8a7b2569e5b51f89d471add4d821594c082d2ac0
                 } catch (InterruptedException e)
                 {
                     e.printStackTrace();
                 }
                 finally
                 {
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> 8a7b2569e5b51f89d471add4d821594c082d2ac0
                     Intent intent=null;
                     if(userLoggedIn)
                     {
@@ -63,6 +91,14 @@ public class SplashScreen extends Activity {
                     startActivity(intent);
                 }
 
+<<<<<<< HEAD
+=======
+=======
+                    Intent intent = new Intent(SplashScreen.this, MapsActivity.class);
+                    startActivity(intent);
+                }
+>>>>>>> d5f05734d3ce1c56188fe3aa3e6a2a5edea4ccf3
+>>>>>>> 8a7b2569e5b51f89d471add4d821594c082d2ac0
             }
         };
                 timerThread.start();

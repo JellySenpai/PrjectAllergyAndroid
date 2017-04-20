@@ -8,6 +8,10 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+<<<<<<< HEAD
         android:text="sup" />
+=======
+        android:text="@string/hello_blank_fragment" />
+>>>>>>> 8a7b2569e5b51f89d471add4d821594c082d2ac0
 
 </FrameLayout>

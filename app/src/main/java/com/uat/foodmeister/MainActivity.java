@@ -141,8 +141,12 @@ public class MainActivity extends AppCompatActivity
         }
         else if (id == R.id.nav_profile)
         {
+<<<<<<< HEAD
             fragment = new MyAccountFragment();
 
+=======
+            fragment = new ProfileFragment();
+>>>>>>> 8a7b2569e5b51f89d471add4d821594c082d2ac0
         }
         else if (id == R.id.nav_slideshow)
         {
