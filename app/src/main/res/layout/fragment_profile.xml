@@ -1,0 +1,195 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.uat.foodmeister.ProfileFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="80dp"
+        android:layout_marginTop="80dp"
+        android:text="Name: " />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="80dp"
+        android:layout_marginTop="120dp"
+        android:text="Email: "
+        android:id="@+id/emailText"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="100dp"
+        android:layout_marginTop="380dp"
+        android:text="Treenut: " />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="100dp"
+        android:layout_marginTop="420dp"
+        android:text="Soy: " />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="100dp"
+        android:layout_marginTop="460dp"
+        android:text="Milk: " />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="100dp"
+        android:layout_marginTop="500dp"
+        android:text="Peanut: " />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="100dp"
+        android:layout_marginTop="340dp"
+        android:text="Egg: " />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="100dp"
+        android:layout_marginTop="300dp"
+        android:text="Wheat: " />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="100dp"
+        android:layout_marginTop="220dp"
+        android:text="Fish: " />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="100dp"
+        android:layout_marginTop="260dp"
+        android:text="Shellfish: " />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:text=""
+        android:layout_marginLeft="140dp"
+        android:layout_marginTop="70dp"
+        android:ems="8"
+        android:id="@+id/editText"
+        android:fontFamily="sans-serif"
+        android:textSize="14sp" />
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:text=""
+        android:layout_marginLeft="140dp"
+        android:layout_marginTop="110dp"
+        android:ems="13"
+        android:id="@+id/editText1"
+        android:fontFamily="sans-serif"
+        android:textSize="14sp" />
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:text="1"
+        android:layout_marginLeft="250dp"
+        android:layout_marginTop="210dp"
+        android:ems="2"
+        android:id="@+id/editText2"
+        android:fontFamily="sans-serif"
+        android:textSize="14sp" />
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:text="0"
+        android:layout_marginLeft="250dp"
+        android:layout_marginTop="250dp"
+        android:ems="2"
+        android:id="@+id/editText3"
+        android:fontFamily="sans-serif"
+        android:textSize="14sp" />
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:text="0"
+        android:layout_marginLeft="250dp"
+        android:layout_marginTop="290dp"
+        android:ems="2"
+        android:id="@+id/editText4"
+        android:fontFamily="sans-serif"
+        android:textSize="14sp" />
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:text="1"
+        android:layout_marginLeft="250dp"
+        android:layout_marginTop="330dp"
+        android:ems="2"
+        android:id="@+id/editText5"
+        android:fontFamily="sans-serif"
+        android:textSize="14sp" />
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:text="0"
+        android:layout_marginLeft="250dp"
+        android:layout_marginTop="370dp"
+        android:ems="2"
+        android:id="@+id/editText6"
+        android:fontFamily="sans-serif"
+        android:textSize="14sp" />
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:text="1"
+        android:layout_marginLeft="250dp"
+        android:layout_marginTop="410dp"
+        android:ems="2"
+        android:id="@+id/editText7"
+        android:fontFamily="sans-serif"
+        android:textSize="14sp" />
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:text="0"
+        android:layout_marginLeft="250dp"
+        android:layout_marginTop="450dp"
+        android:ems="2"
+        android:id="@+id/editText8"
+        android:fontFamily="sans-serif"
+        android:textSize="14sp" />
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:text="1"
+        android:layout_marginLeft="250dp"
+        android:layout_marginTop="490dp"
+        android:ems="2"
+        android:id="@+id/editText9"
+        android:fontFamily="sans-serif"
+        android:textSize="14sp" />
+
+    <!-- <CheckBox
+         android:text="CheckBox"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:id="@+id/checkBox" />-->
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/button"
+        android:text="Add" />
+
+</FrameLayout>

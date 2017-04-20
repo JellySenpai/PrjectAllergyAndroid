@@ -1,6 +1,14 @@
 apply plugin: 'com.android.application'
 
 android {
+    signingConfigs {
+        config {
+            keyAlias 'Food-MeisterKey'
+            keyPassword 'password'
+            storeFile file('C:/Users/rayhardi/Food-Meister_APK/Food-Meisterkey.jks')
+            storePassword 'password'
+        }
+    }
     compileSdkVersion 24
     buildToolsVersion "24.0.2"
     defaultConfig {
@@ -16,8 +24,9 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.config
         }
-        debug{
+        debug {
             debuggable true
         }
     }
@@ -34,14 +43,13 @@ dependencies {
     })
     compile 'com.android.support:appcompat-v7:24.2.1'
     compile 'com.android.support:design:24.2.1'
-
     compile 'com.mcxiaoke.volley:library:1.0.19'
-    compile 'com.google.android.gms:play-services:9.0.2'
-    compile 'com.google.android.gms:play-services-auth:9.0.2'
-    compile 'com.google.firebase:firebase-auth:9.0.2'
+    compile 'com.google.android.gms:play-services:10.2.0'
+    compile 'com.google.android.gms:play-services-auth:10.2.0'
+    compile 'com.google.firebase:firebase-auth:10.2.0'
     compile 'com.github.dmytrodanylyk.android-process-button:library:1.0.4'
-
+    compile 'pl.droidsonroids.gif:android-gif-drawable:1.1.17'
+    compile 'com.android.support:support-v4:24.2.1'
     testCompile 'junit:junit:4.12'
-
 }
 apply plugin: 'com.google.gms.google-services'

@@ -53,6 +53,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         setContentView(R.layout.activity_maps);
 
+
         mainCoordinateLayout = (CoordinatorLayout) findViewById(R.id.mainCoordinatorLayout);
 
         locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
@@ -149,7 +150,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         googlePlacesUrl.append("&radius=").append(AppConfig.PROXIMITY_RADIUS);
         googlePlacesUrl.append("&types=").append("restaurant");
         googlePlacesUrl.append("&sensor=true");
-        googlePlacesUrl.append("&key=" + "AIzaSyAeTyQ8P_uJ1UGNwxpPpmgNylv5GG66LDY");
+        googlePlacesUrl.append("&key=" + "AIzaSyDuUPsfVHN7RWR5IohI6imgRbQMfxC7it0");
 
         Log.i("URL", googlePlacesUrl.toString());
 

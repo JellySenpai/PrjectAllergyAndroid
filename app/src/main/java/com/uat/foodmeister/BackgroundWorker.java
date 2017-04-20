@@ -7,6 +7,11 @@ import android.text.Html;
 import android.util.DisplayMetrics;
 import android.util.Log;
 
+import com.uat.foodmeister.DB.DBWorkerDelegate;
+
+import org.json.JSONObject;
+
+import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.Console;
@@ -24,15 +29,21 @@ import java.net.URLEncoder;
  * Created by Nathan on 10/22/2016.
  */
 
-public class BackgroundWorker extends AsyncTask<String,Void,String> {
+public class BackgroundWorker extends AsyncTask<String,Void,JSONObject> {
     Context context;
     AlertDialog alertDialog;
     BackgroundWorker(Context ctx) {
         context = ctx;
     }
 
+    DBWorkerDelegate delegate;
+
+    public void setOnFinishedListener(DBWorkerDelegate delegate){
+        this.delegate = delegate;
+    }
+
     @Override
-    protected String doInBackground(String... params) {
+    protected JSONObject doInBackground(String... params) {
         String type = params[0];
         String login_url = "http://thefoodmeister.com/searchDatabase.php";
         if(type.equals("location")) {
@@ -62,7 +73,7 @@ public class BackgroundWorker extends AsyncTask<String,Void,String> {
                 bufferedReader.close();
                 inputStream.close();
                 httpURLConnection.disconnect();
-                return result;
+                return new JSONObject();
             } catch (MalformedURLException e) {
                 e.printStackTrace();
             } catch (IOException e) {
@@ -73,23 +84,35 @@ public class BackgroundWorker extends AsyncTask<String,Void,String> {
     }
 
     @Override
-    protected void onPreExecute() {
-        alertDialog = new AlertDialog.Builder(context).create();
-        alertDialog.setTitle("Restaurant Info");
+    protected void onPostExecute(JSONObject result) {
+        this.delegate.taskFinished(true, result);
     }
+    private String readURLReturnData(HttpURLConnection connection){
+        String result = null;
+        StringBuffer sb = new StringBuffer();
+        InputStream is = null;
 
-    @Override
-    protected void onPostExecute(String result) {
-
-        alertDialog.setMessage(Html.fromHtml(result));
-        alertDialog.show();
-        //alertDialog.getWindow().setLayout(2000,2400);
-        //String running = "running";
-        //Log.d("running", "successful yay");
-    }
-
-    @Override
-    protected void onProgressUpdate(Void... values) {
-        super.onProgressUpdate(values);
+        try{
+            is = new BufferedInputStream(connection.getInputStream());
+            BufferedReader br = new BufferedReader(new InputStreamReader(is));
+            String inputLine = "";
+            while((inputLine = br.readLine()) != null){
+                sb.append(inputLine);
+            }
+            result = sb.toString();
+        }
+        catch(Exception e){
+            Log.i("BackgroundWorker", "Error Reading Input Stream");
+            result = null;
+        }
+        finally{
+            if(is != null){
+                try{
+                    is.close();
+                }
+                catch(IOException e){}
+            }
+        }
+        return result;
     }
 }
